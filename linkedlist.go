@@ -8,30 +8,7 @@ type LinkedList struct {
 	head *Node
 }
 
-func (ll *LinkedList) HasLoop() bool {
-	if ll.head == nil {
-		return false
-	}
-	slow := ll.head
-	fast := ll.head
-	for {
-		if fast.next == nil {
-			return false
-		}
-		fast = fast.next
-		slow = slow.next
-		if fast.next == nil {
-			return false
-		}
-		fast = fast.next
-
-		if fast == slow {
-			return true
-		}
-	}
-}
-
-func (ll *LinkedList) RemoveLoop() {
+func (ll *LinkedList) FindAndRemoveLoop() {
 	if ll.head == nil {
 		return
 	}
