@@ -1,4 +1,4 @@
-package linked_list
+package linkedlist
 
 import "testing"
 
@@ -43,6 +43,16 @@ func TestLinkedList_HasLoop(t *testing.T) {
 	})
 }
 
-func BenchmarkLinkedList_HasLoop(b *testing.B) {
+func TestLinkedList_RemoveLoop(t *testing.T) {
+	n1 := Node{next: nil}
+	n2 := Node{next: &n1}
+	n3 := Node{next: &n2}
+	n1.next = &n2
+	ll := LinkedList{head: &n3}
 
+	ll.RemoveLoop()
+
+	if ll.HasLoop() != false {
+		t.Fatal("Linked list has loop")
+	}
 }

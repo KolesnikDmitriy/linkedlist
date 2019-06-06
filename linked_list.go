@@ -1,7 +1,7 @@
-package linked_list
+package linkedlist
 
 type Node struct {
-	next    *Node
+	next *Node
 }
 
 type LinkedList struct {
@@ -12,21 +12,49 @@ func (ll *LinkedList) HasLoop() bool {
 	if ll.head == nil {
 		return false
 	}
-	turtle := ll.head
-	hare := ll.head
+	slow := ll.head
+	fast := ll.head
 	for {
-		if hare.next == nil {
+		if fast.next == nil {
 			return false
 		}
-		hare = hare.next
-		turtle = turtle.next
-		if hare.next == nil {
+		fast = fast.next
+		slow = slow.next
+		if fast.next == nil {
 			return false
 		}
-		hare = hare.next
+		fast = fast.next
 
-		if hare == turtle {
+		if fast == slow {
 			return true
+		}
+	}
+}
+
+func (ll *LinkedList) RemoveLoop() {
+	if ll.head == nil {
+		return
+	}
+	slow := ll.head
+	fast := ll.head
+	for {
+		if fast.next == nil {
+			return
+		}
+		fast = fast.next
+		slow = slow.next
+		if fast.next == nil {
+			return
+		}
+		fast = fast.next
+
+		if fast == slow {
+			slow = ll.head
+			for slow.next != fast.next {
+				fast = fast.next
+				slow = slow.next
+			}
+			fast.next = nil
 		}
 	}
 }
