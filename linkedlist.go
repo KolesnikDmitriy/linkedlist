@@ -12,8 +12,8 @@ func (ll *LinkedList) FindAndRemoveLoop() {
 	if ll.head == nil {
 		return
 	}
-	slow := ll.head
-	fast := ll.head
+	slow := &Node{next: ll.head}
+	fast := &Node{next: ll.head}
 	for {
 		if fast.next == nil {
 			return
@@ -26,7 +26,7 @@ func (ll *LinkedList) FindAndRemoveLoop() {
 		fast = fast.next
 
 		if fast == slow {
-			slow = ll.head
+			slow = &Node{next: ll.head}
 			for slow.next != fast.next {
 				fast = fast.next
 				slow = slow.next
